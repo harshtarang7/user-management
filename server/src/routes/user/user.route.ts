@@ -6,6 +6,8 @@ const userRouter = Router();
 const userService = new UserService()
 const userController = new UserController(userService);
 
-userRouter.post('/get-users',userController.userLogin)
+userRouter.post('/login',userController.userLogin)
+userRouter.post('/get-users-list',userController.usersList)
+userRouter.post('/get-user-detail',userController.userDetail)
 
 export default userRouter
