@@ -22,4 +22,32 @@ export class OrderController {
       });
     }
   };
+
+   getOrderDetail = async (req: Request, res: Response) => {
+    try {
+   
+      const {id} = req.body;
+
+         if(typeof id !== 'number'){
+        return res.status(400).json({
+          success:false,
+          message:'Invaild request',
+          data:{}
+        })
+      }
+
+      const order = await this.orderService.getOrderDetail(id);
+
+      res.status(200).json({
+        success: true,
+        message: "Order detail fetched successfully",
+        data: order,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: `Internal server error: ${error}`,
+      });
+    }
+  };
 }

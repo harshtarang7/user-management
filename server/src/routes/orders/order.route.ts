@@ -7,6 +7,6 @@ const orderService = new OrderService()
 const orderController = new OrderController(orderService);
 
 orderRouter.post('/get-orders',orderController.getOrders)
-// orderRouter.post('/get-product-detail',orderController.getProductDetail)
+orderRouter.post('/get-order-detail',orderController.getOrderDetail)
 
 export default orderRouter

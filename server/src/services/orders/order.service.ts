@@ -1,7 +1,6 @@
 import client from "../../config/db.config";
-import { ProductListResponseDto } from "../products/dto/product.list.request";
 import { UserListRequestDto } from "../user/dto/user.list.request";
-import { OrderListResponseDto } from "./dto/order.list.response";
+import { IOrders, OrderListResponseDto } from "./dto/order.list.response";
 
 export class OrderService{
     constructor(){}
@@ -39,6 +38,37 @@ export class OrderService{
       };
     } catch (error) {
       throw error;
+    }
+  }
+
+  async getOrderDetail(id:number):Promise<IOrders>{
+    try {
+      const existingOrder = `
+      SELECT * FROM orders
+      WHERE orders.id = $1
+      ORDER BY id ASC
+      `;
+
+      const {rows} = await client.query(existingOrder,[id]);
+
+      if(rows.length === 0){
+        throw new Error('No orders found with this id');
+      }
+
+      const orderAudit = `
+      SELECT * FROM order_audit
+      Where order_id = $1
+      `;
+
+       const auditResult = await client.query(orderAudit,[id]);
+
+       return {
+        ...rows[0],
+        audit:auditResult.rows
+       }
+
+    } catch (error) {
+      throw error
     }
   }
 }

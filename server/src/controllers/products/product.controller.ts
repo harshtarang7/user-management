@@ -37,12 +37,12 @@ export class ProductController {
         })
       }
 
-      const products = await this.productService.getProductDetail(id);
+      const product = await this.productService.getProductDetail(id);
 
       res.status(200).json({
         success: true,
-        message: "Products detail fetched successfully",
-        data: products,
+        message: "Product detail fetched successfully",
+        data: product,
       });
     } catch (error) {
       res.status(500).json({
@@ -51,4 +51,6 @@ export class ProductController {
       });
     }
   };
+
+
 }
