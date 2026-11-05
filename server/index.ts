@@ -3,9 +3,13 @@ import { connectDB } from './src/config/db.config';
 import userRoutes from "./src/routes/user/user.route";
 import productRoutes from "./src/routes/products/product.route";
 import orderRoutes from "./src/routes/orders/order.route";
+import cors from 'cors'
 
 const app = express();
 app.use(express.json());
+app.use(cors({
+    origin:'http://localhost:5173'
+}))
 
 app.get('/',(req,res)=>{
         res.send('got it ')

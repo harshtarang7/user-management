@@ -2,8 +2,12 @@ import React from 'react'
 import { AppSidebar } from '../sidebar/Sidebar'
 import Header from '../header/Header'
 import { SidebarProvider } from '../../components/ui/sidebar'
+import { Outlet } from 'react-router'
 
-function DashboardLayout({ children }: { children: React.ReactNode }) {
+function DashboardLayout(
+  // { children }: { children: React.ReactNode }
+  
+) {
   return (
     <SidebarProvider>
         <div className="flex h-screen w-full overflow-hidden">
@@ -18,7 +22,8 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
           <Header />
         </header>
             <main className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-10">
-                {children}
+                {/* {children} */}
+                  <Outlet />
             </main>
             
             </div>

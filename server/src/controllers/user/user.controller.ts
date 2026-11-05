@@ -19,7 +19,7 @@ export class UserController {
     } catch (error) {
       res.status(500).json({
         success: false,
-        message: "Login error",
+        message: `Login error ${error} `,
       });
     }
   };

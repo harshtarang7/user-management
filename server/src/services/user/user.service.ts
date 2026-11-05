@@ -73,6 +73,9 @@ export class UserService {
         totalPages: Math.ceil(total / limit),
       };
     } catch (error) {
+      if(error instanceof Error){
+        throw error
+      }
       throw error;
     }
   }

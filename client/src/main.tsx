@@ -3,11 +3,16 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import DashboardLayout from './common/layout/DashboardLayout.tsx'
+import { BrowserRouter } from 'react-router'
+import { Toaster } from './components/ui/toast.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <DashboardLayout>
+    {/* <DashboardLayout> */}
+      <BrowserRouter>
     <App />
-    </DashboardLayout>
+      </BrowserRouter>
+      <Toaster />
+    {/* </DashboardLayout> */}
   </StrictMode>,
 )
