@@ -10,17 +10,17 @@ function App() {
 
   return (
     <>
-       <Routes>
-      <Route path="/" element={<Login />} />
+      <Routes>
+        <Route path="/" element={<Login />} />
 
-      <Route  element={<DashboardLayout />}>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/products" element={<Products />} />
-      </Route>
+        <Route element={<DashboardLayout />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/products" element={<Products />} />
+        </Route>
 
-      {/* <Route path="*" element={<NotFound />} /> */}
-    </Routes>
+        {/* <Route path="*" element={<NotFound />} /> */}
+      </Routes>
     </>
     //  <Routes>
     //   <Route path="/" element={<DashboardLayout />}>

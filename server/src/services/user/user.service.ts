@@ -38,19 +38,30 @@ export class UserService {
   }
 
   async userList(dto: UserListRequestDto): Promise<UserListResponseDto> {
-    const { page = 1, limit = 10 } = dto;
+    const { page = 1, limit = 10, searchTerm } = dto;
     const offset = (page - 1) * limit;
 
     try {
+      const params: (string | number)[] = [limit, offset];
+      let searchFilter = "";
+      let countSearchFilter = "";
+
+      if (searchTerm) {
+        searchFilter = `AND (username ILIKE $3 OR email ILIKE $3)`;
+        countSearchFilter = `AND (username ILIKE $1 OR email ILIKE $1)`;
+        params.push(`%${searchTerm}%`);
+      }
+
       const userQuery = `
       SELECT *
       FROM users
       WHERE active = true
-      ORDER BY username ASC
+      ${searchFilter}
+      ORDER BY id ASC
       LIMIT $1 OFFSET $2
     `;
 
-      const { rows } = await client.query(userQuery, [limit, offset]);
+      const { rows } = await client.query(userQuery, params);
 
       if (rows.length === 0) {
         throw new Error("no users exist");
@@ -60,9 +71,11 @@ export class UserService {
       SELECT COUNT(*) AS total
       FROM users
       WHERE active = true
+      ${countSearchFilter}
       `;
 
-      const { rows: countRows } = await client.query(countQuery);
+      const countParams = searchTerm ? [`%${searchTerm}%`] : [];
+      const { rows: countRows } = await client.query(countQuery, countParams);
       const total = Number(countRows[0].total);
 
       return {
